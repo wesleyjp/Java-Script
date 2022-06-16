@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Jogo</title>
+	<style type="text/css">body{background-color: lightblue;}canvas{margin-left:20%;background: url('board.png') no-repeat center center fixed; background-size: 60% 85%;}</style>
+</head>
+<body onload="loop()" oncontextmenu="return false">
+
+	<canvas></canvas>
+
+	<script>
+		var canvas = document.querySelector('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 800;
+		canvas.height = 600;
+
+		var margem = 40;
+		var linha = 0;
+		var ai = 1;
+		var player = 'h';
+
+		var data = [];
+		var objetos = [];
+		var selecionados = [];
+		
+		var objeto = function() {
+			this.x = 20;
+			this.y = 50;
+			this.width = 70;
+			this.height = 40;
+			this.pos = [0,0];
+			this.color = 'green';
+			this.selected = false;
+			this.hiden = false;
+
+			this.exec = function() {
+				if (selecionados.length == 0) {linha = 0;}
+				if (this.hiden) {return}
+				if (linha == 0 || this.pos[0] == linha) {
+					linha = this.pos[0];
+				} else {
+					return
+				}
+				if (this.selected) {
+					this.selected = false;
+					selecionados.splice(selecionados.indexOf(this.pos), 1);;
+					this.color = 'green'
+				} else {
+					this.selected = true;
+					selecionados.push(this.pos);
+					if (this.color == 'blue') {return}
+					this.color = 'red';
+				}
+				
+			}
+		}
+
+		//texto("Carregando....", 10, 10, 'black');
+
+		for (let i = 1; i<=12; i++) {
+			var peca = new objeto();
+			data.push(peca);
+		}
+
+		organize();
+		clasific();
+		
+		/*
+		canvas.addEventListener('mousemove', function(e){
+			mouseX = e.offsetX;
+			mouseY = e.offsetY;
+		});*/
+
+		canvas.addEventListener('mousedown', function(e){
+			mouseX = e.offsetX;
+			mouseY = e.offsetY;
+			checkClick();
+		});
+		/*
+		document.addEventListener('keydown', function(e){
+			 if (e.ctrlKey && 
+	            (e.keyCode === 67 || 
+	             e.keyCode === 86 || 
+	             e.keyCode === 85 || 
+	             e.keyCode === 117)) {
+	            alert('not allowed');
+	            return false;
+	        } else {
+	            return true;
+	        }
+		}) */
+
+		function loop(){
+			//update();
+			render();
+			window.requestAnimationFrame(loop);
+		}
+
+		function update(){
+			if (ai != 0) {
+				console.log(player)
+				if (player == 'm') {
+					ai_pegaVz = rand(1,5)
+					for (let i=1; i<= ai_pegaVz; i++) {
+						for (i in data) {
+							ai_pegaLn = rand(1,5);
+							ai_pegaCl = rand(1,3);
+							if (data[0].pos == `${ai_pegaLn},${ai_pegaCl}`) {data[i].selected = true; data[i].color = 'blue';}
+							console.log(`${ai_pegaLn},${ai_pegaCl}`)
+						}
+						
+					}
+					player = 'h';
+					setTimeout(function() {pegarExec();}, 300);
+				}
+			}
+		}
+
+		function render() {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			
+			for (i in data) {
+				ctx.beginPath()
+				ctx.fillStyle = data[i].color;
+				ctx.rect(data[i].x, data[i].y, data[i].width, data[i].height);
+				ctx.closePath()
+				ctx.fill();
+			}
+			button();
+		}
+
+		function texto(str,x,y,cor) {
+			ctx.beginPath()
+			ctx.fillStyle = cor;
+			ctx.font = "35px Marker Felt";
+			ctx.closePath()
+			ctx.fillText(str,x,y);
+		}
+
+		function checkClick() {
+			for (i in data) {
+				if (mouseX < data[i].x + data[i].width &&
+					mouseX > data[i].x &&
+					mouseY < data[i].y + data[i].height &&
+					mouseY > data[i].y) {
+					data[i].exec();
+				}
+			}
+
+			if (mouseX < pegar.x + pegar.width && //pegar check
+					mouseX > pegar.x &&
+					mouseY < pegar.y + pegar.height &&
+					mouseY > pegar.y) {
+					player = 'm';
+					pegarExec();
+				}
+		}
+
+		function button() {
+			pegar = {x:canvas.width - 200, y:margem + 70, width:150, height:50, color:'white',bcolor:'black', text:'PEGAR'};
+			objetos.push(pegar);
+			for (i in objetos) {
+				ctx.beginPath()
+				ctx.fillStyle = objetos[i].bcolor;
+				ctx.rect(objetos[i].x, objetos[i].y, objetos[i].width, objetos[i].height);
+				ctx.closePath()
+				ctx.fill();
+				texto(objetos[i].text,objetos[i].x+15,objetos[i].y+35,objetos[i].color)
+			}
+
+		}
+
+		function pegarExec() {
+			if (selecionados.length >= 12){cont = 3;reinicia()}
+			for (i in data) {
+				if (data[i].selected) {data[i].color = "rgb(255,255,255,0)";data[i].hiden = true;}
+			}
+			linha = 0;
+		}
+
+		function reinicia() {
+			if (cont <= 0) {location.reload();return}
+			texto(`FIM DE JOGO ${Math.round(cont)}`, canvas.width /2 - 150, canvas.height / 2 - 20, "blue")
+			cont -= 0.1;
+			window.requestAnimationFrame(reinicia);				
+			
+		}
+
+		function rand(min, max) {
+		 	return Math.floor(Math.random() * (max - min + 1)) + min;
+		 }
+
+		function clasific() {
+			for (i in data) {
+				let col = parseInt(i)+1;
+				if (i <= 4) {
+					data[i].pos = [1,col];
+				}
+				if (i > 4 && i <= 8) {
+					data[i].pos = [2,col-5];
+				}
+				if (i > 8 && i <= 11) {
+					data[i].pos = [3,col-9];
+				}
+			}
+		}
+
+		function organize() {
+			pont = [margem,margem+70]; //poiter position and margin top
+			for (i in data) {
+
+				if (i <= 4) {
+					data[i].x = pont[0];	
+					data[i].y = pont[1];
+
+					pont[0] = data[i].x + data[i].width + margem;
+					
+				} 
+				
+				if (i == 4) {pont[1] = data[i].y + data[i].height + margem;pont[0] = margem}
+
+				if (i > 4 && i <= 8) {
+					data[i].x = pont[0];
+					data[i].y = pont[1];
+
+					pont[0] = data[i].x + data[i].width + margem;
+				}
+
+				if (i == 8) {pont[1] = data[i].y + data[i].height + margem;pont[0] = margem}
+
+				if (i > 8 && i <= 11) {
+					data[i].x = pont[0];
+					data[i].y = pont[1];
+
+					pont[0] = data[i].x + data[i].width + margem;
+				}
+			}
+		}
+	</script>
+
+</body>
+</html>

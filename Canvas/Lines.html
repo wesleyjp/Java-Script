@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<html lang="pt">
+<head>
+	<meta charset="utf-8">
+	<title>Index-01</title>
+
+	<style type="text/css">
+		* {
+			margin: 10px 10px 10px 10px;
+		}
+		body {
+			background-color: lightblue;
+		}
+		canvas {
+			background-color: black;
+			position: absolute;
+		}
+		#content {
+			border: solid 1px black;
+			width: 1300px;
+			height: 640px;
+		}
+	</style>
+</head>
+<body>
+	<div id="content">
+		<canvas></canvas>
+	</div>
+	<script type="text/javascript">
+		var canvas = document.querySelector('canvas');
+		var ctx = canvas.getContext('2d');
+		canvas.width = 1200;
+		canvas.height = 600;
+		
+		var data = [];
+
+		Ponteiro = function(x, y, w, h) {
+			this.x = x;
+			this.y = y;
+			this.width = w;
+			this.height = h;
+			this.color = "lightgreen";
+			this.op = true;
+		}
+
+		pont1 = new Ponteiro(0,0,5,canvas.height);
+		pont2 = new Ponteiro(0,0,canvas.width,5);
+		pont3 = new Ponteiro(canvas.width,0,5,canvas.height);
+		pont4 = new Ponteiro(0,canvas.height,canvas.width,5);
+		data.push(pont1,pont2,pont3,pont4);
+
+		azul = new Ponteiro(0,0,0,0);
+		azul.color = "#1C1C1C";
+		data.push(azul);
+
+		data[0].color = 'red';
+		//data[1].color = 'green';
+		data[2].color = 'blue';
+		data[3].color = 'yellow';
+
+
+		/*document.addEventListener('mousemove', function(e){
+				pont1.x = e.offsetX;
+				pont2.y = e.offsetY;
+			})*/
+		
+
+		function loop() {
+			update();
+			render();
+			window.requestAnimationFrame(loop);
+		}
+
+		function update() {
+			if (pont1.x > canvas.width / 2) {pont1.op = false;}
+			if (pont1.x < 0) {pont1.op = true;}
+			if (pont2.y > canvas.height / 2) {pont2.op = false;}
+			if (pont2.y < 0) {pont2.op = true;}
+			pont1.op ? pont1.x++ : pont1.x--;
+			pont2.op ? pont2.y++ : pont2.y--;
+
+			if (pont3.x < canvas.width / 2) {pont3.op = true;}
+			if (pont3.x > canvas.width) {pont3.op = false;}
+			if (pont4.y < canvas.height / 2) {pont4.op = true;}
+			if (pont4.y > canvas.height) {pont4.op = false;}
+			pont3.op ? pont3.x++ : pont3.x--;
+			pont4.op ? pont4.y++ : pont4.y--;
+
+			azul.x = pont1.x + 5;
+			azul.y = pont2.y + 5;
+			azul.width = pont3.x - pont1.x - 5;
+			azul.height = pont4.y - pont2.y - 5;
+		}
+
+
+		function render() {
+			ctx.clearRect(0,0,canvas.width,canvas.height); //limpa Tela
+
+			for (i in data) {
+				ctx.fillStyle = data[i].color;
+				ctx.fillRect(data[i].x, data[i].y, data[i].width, data[i].height);
+			}
+			
+		}
+		loop();
+
+		
+	</script>
+</body>
+</html>

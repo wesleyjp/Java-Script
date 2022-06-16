@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Informações GitHub</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body onload="showtab(1)">
+    
+    <div id="div_content">
+        <div id="header" style="margin-left: 30%;">
+            INFORMAÇÔES GUITHUB
+        </div>
+        <br>
+        <br>
+        NOME:<br>
+        <input type="text" id="inp_name"> <input type="button" value="BUSCAR" onclick="buscar()">
+        <br><br>
+        <input type="button" class="aba_btn" value="ABA_01" onclick="showtab(1)">
+        <input type="button" class="aba_btn" value="ABA_02" onclick="showtab(2)">
+        <input type="button" class="aba_btn" value="ABA_03" onclick="showtab(3)">
+        <div id="aba_content">
+            <div class="aba" id="aba_1">
+                <img src="avatar.png" id="avatar">
+                Nome: <span id="nome"></span> <br>
+                Seguindo: <span id="following"></span> <br>
+                Seguidores: <span id="followers"></span> <br>
+                Criado em: <span id="created_at"></span> <br>
+                Atualizado em: <span id="updated_at"></span> <br>
+            </div>
+            <div class="aba" id="aba_2">DEF</div>
+            <div class="aba" id="aba_3">GHI</div>
+        </div>
+    </div>
+</body>
+</html>

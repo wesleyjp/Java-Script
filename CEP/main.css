@@ -1,0 +1,13 @@
+body {
+    background-color: rgb(71, 71, 71);
+    color: white;
+}
+
+textarea {
+    width: 400px;
+    height: 600px;
+    color: white;
+    background-color: teal;
+    resize: none;
+
+}

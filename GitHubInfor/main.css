@@ -1,0 +1,53 @@
+body {
+    background-color: gray;
+}
+
+#div_content {
+    width: 800px;
+    height: 600px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(20, 171, 231);
+    border: 4px solid white;
+    padding: 20px;
+}
+
+#aba_content {
+    width: 750px;
+    height: 350px;
+    padding: 10px;
+    background-color: green;
+    border: 1px solid white;
+}
+
+.aba {
+    float: left;
+    margin: 2px;
+    display: none;
+    width: 750px;
+    height: 350px;
+}
+
+/*Botões*/ 
+
+.aba_btn {
+    width: 150px;
+    height: 30px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+span {
+    margin: 10px;
+}
+
+a {
+    color: white;
+}
+
+/* Avatar */
+#avatar {
+    width: 180px;
+    height: 180px;
+    float: right;
+    
+}

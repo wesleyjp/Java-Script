@@ -1,0 +1,8 @@
+body {	
+	background-color: grey;
+}
+canvas {
+	background-color: #909090;
+	margin-left: 20%;
+	cursor: all-scroll;
+}

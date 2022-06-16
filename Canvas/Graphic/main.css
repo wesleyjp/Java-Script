@@ -1,0 +1,9 @@
+body {
+    width: 800px;
+    height: 600px;
+    background-color: cadetblue;
+}
+canvas {
+    border: 2px solid white;
+    margin: 10px auto auto 10px;
+}
