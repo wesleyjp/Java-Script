@@ -1,7 +1,7 @@
 var canvas = document.getElementById("canvas");
 var ctx = canvas.getContext("2d");
 var apertou = false;
-var gravidade = 1.8;
+var gravidade = 1.0;
 var exibirpos = true; //exibe posição do foquete na tela
 var right = left = up = down = false;
 
