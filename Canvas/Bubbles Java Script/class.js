@@ -27,9 +27,9 @@ Celula = function(x,y,cor) {
 	this.mov = function() {
 		//segue o mouse
 		if (this.x + this.radius < canvas.width || this.y + this.radius < canvas.height) {
-			if (this.x < mouseX) {this.vx += this.pot;}
+			if (this.x < mouseX) {this.vx += this.pot * 2;}
 			if (this.y < mouseY) {this.vy += this.pot;}
-			if (this.x > mouseX) {this.vx -= this.pot;}
+			if (this.x > mouseX) {this.vx -= this.pot * 2;}
 			if (this.y > mouseY) {this.vy -= this.pot;}
 		}
 
