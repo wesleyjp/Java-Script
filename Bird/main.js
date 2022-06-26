@@ -26,20 +26,20 @@ function update() {
 
     if (look1 && !look2) {
         look2 = true;
-        bird.src="img/birdr.gif"
+        bird.src="img/birdr.gif";
     };
 
     if (!look1 && look2) {
         look2 = false;
-        bird.src="img/birdl.gif"
+        bird.src="img/birdl.gif";
     };
 }
 
 function move() {
-    if (bLeft < mX - 45) {bird.style.left = bLeft + speed + 'px';look1 = true;}
-    if (bLeft > mX + 15) {bird.style.left = bLeft - speed + 'px';look1 = false;}
-    if (bTop < mY) { bird.style.top = bTop + speed + 'px';}
-    if (bTop > mY) { bird.style.top = bTop - speed + 'px';}
+    if (bLeft < mX - 40) {bird.style.left = bLeft + speed + 'px';look1 = true;}
+    if (bLeft > mX + 10) {bird.style.left = bLeft - speed + 'px';look1 = false;}
+    if (bTop < mY - 5) { bird.style.top = bTop + speed + 'px';}
+    if (bTop > mY + 5) { bird.style.top = bTop - speed + 'px';}
 }
 
 loop();
