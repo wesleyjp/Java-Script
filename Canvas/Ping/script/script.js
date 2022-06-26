@@ -17,6 +17,8 @@ character.vx = 30; //Variavel Temporaria!
 character.vy = 30; //Variavel Temporaria!
 data.push(character);
 
+saida("Click to Start", canvas.width / 2 - 90, canvas.height / 2, "60px ArialBlack", "blue");
+
 window.addEventListener("keydown", function(){
 	if (!paused) {
 		control(event.keyCode);
@@ -38,6 +40,9 @@ canvas.addEventListener("mousemove", function(e){
 		character.y = e.offsetY - (character.height / 2);
 	}
 });
+
+
+canvas.addEventListener('click', loop);
 
 // Main Functions
 
