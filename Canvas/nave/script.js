@@ -24,6 +24,15 @@ var foquete = function(){
 	this.exibe = function(){
 		ctx.fillStyle = "blue";
 		ctx.fillRect(this.x, this.y, this.w, this.h); //desenha personagem
+		
+		ctx.font = "10px Arial";
+    	ctx.strokeStyle = "yellow";
+    	ctx.strokeText("W", this.x + 20, this.y + 10);
+    	ctx.strokeText("A", this.x + 2, this.y + 30);
+    	ctx.strokeText("D", this.x + 40, this.y + 30);
+    	ctx.strokeText("S", this.x + 20, this.y + 55);
+
+ 
 	}
 	this.combustaoup = function(){
 		ctx.fillStyle = "orange";

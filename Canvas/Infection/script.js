@@ -9,7 +9,7 @@ var blowStatus = false;
 var mouseX = 0;
 var mouseY = 0;
 
-for (i = 0; i <= 50; i++) {
+for (i = 0; i <= 150; i++) {
 	var per = new Celula(rand(0,canvas.width), rand(0,canvas.height), randCor());
 	data.push(per);
 }
