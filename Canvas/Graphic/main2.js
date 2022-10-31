@@ -4,6 +4,10 @@ canvas.width = 600;
 canvas.height = 400;
 var fps = 15;
 var pcase = [];
+var coll_i = 1; //valor collatz
+var coll = coll_i;
+var terminalLog = document.getElementById("txtarea");
+
 
 var pencil = {
     x: 0,
@@ -14,7 +18,7 @@ var pencil = {
     altmax: 150,
     altmin: 50,
     state: true,
-    color: 'white',
+    color: 'red',
 }
 
 function loop() {
@@ -28,46 +32,38 @@ function loop() {
 }
 
 function update() {
-    if (pencil.x > canvas.width) {
+    if (pencil.x > canvas.width || coll <= 1) {
         pencil.x = 0;
         pencil.y = canvas.height;
         pencil.xi = 0;
         pencil.yi = canvas.height;
 
-        pencil.color = randCor();
-        console.log('Zerou');
+        if (coll <= 30) {coll = coll_i++;msg(`collatz: ${coll}`);}
+        if (coll >= 30) {coll_i = coll = 1;msg('clear');msg('Zerou');}
+
+        //pencil.color = randCor();
+        
         ctx.beginPath()
         ctx.clearRect(0,0,canvas.width,canvas.height); //limpa Tela
     };
 
-    if (pencil.y <= canvas.height - pencil.altmax) {pencil.state = false;}
-    if (pencil.y >= canvas.height - pencil.altmin) {pencil.state = true;}
-
+    //if (pencil.y <= canvas.height - pencil.altmax) {pencil.state = false;}
+    //if (pencil.y >= canvas.height - pencil.altmin) {pencil.state = true;}
+    
     updown();
 }
 
 function updown() {
-    if (pencil.state) {
-        if (pencil.xi != pencil.x) { //nao deixa o valor de xi, yi ser igual x,y
-            pencil.xi = pencil.x;
-            pencil.yi = pencil.y;
-        }
 
-        pencil.x += pencil.speed;
-        pencil.y -= rand(pencil.altmin, pencil.altmax)//pencil.speed;
-        console.log('subindo');
+    if (pencil.xi != pencil.x) { //nao deixa o valor de xi, yi ser igual x,y
+        pencil.xi = pencil.x;
+        pencil.yi = pencil.y;
     }
-    if (!pencil.state) {
-        if (pencil.xi != pencil.x) { //nao deixa o valor de xi, yi ser igual x,y
-            pencil.xi = pencil.x;
-            pencil.yi = pencil.y;
-        }
 
-        pencil.x += pencil.speed;
-        pencil.y += rand(pencil.altmin, pencil.altmax)//pencil.speed;     
-        console.log('descendo');
-
-    }
+    pencil.x += pencil.speed;
+    pencil.y = canvas.height - collatz(coll);
+        
+    
 }
 
 function render(obj) {
@@ -89,21 +85,15 @@ function render(obj) {
 
 
 function randCor() {
-var c1 = rand(0, 255); //Red
-var c2 = rand(0, 255); // Green
-var c3 = rand(0, 255); // Blue
-var c4 = Math.random() * 1; //alfa
-return "rgb("+c1+","+c2+","+c3+")";
+    var c1 = rand(0, 255); //Red
+    var c2 = rand(0, 255); // Green
+    var c3 = rand(0, 255); // Blue
+    var c4 = Math.random() * 1; //alfa
+    return "rgb("+c1+","+c2+","+c3+")";
 }
 
 function rand(min, max) {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-function test() {
-    while (collatz() <= 1) {
-        
-        console.log(collatz())
-    }
 }
 
 
@@ -111,10 +101,17 @@ function test() {
 //If even   N / 2
 function collatz(n) {
     if (n % 2 == 0) {
-        return n / 2;
+        return coll = n / 2;
     } else {
-        return n * 3 + 1 ;
+        return coll = n * 3 + 1 ;
     }
+}
+
+function msg(m) {
+    if (m == "clear") {terminalLog.value = "";return}
+
+    terminalLog.value += `\n ${m}`;
+    terminalLog.scrollTop = terminalLog.scrollHeight;
 }
 
 loop();
