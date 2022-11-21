@@ -1,7 +1,7 @@
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = 600;
-canvas.height = 400;
+canvas.width = 800;
+canvas.height = 600;
 var fps = 15;
 var pcase = [];
 var coll_i = 1; //valor collatz
@@ -38,8 +38,8 @@ function update() {
         pencil.xi = 0;
         pencil.yi = canvas.height;
 
-        if (coll <= 30) {coll = coll_i++;msg(`collatz: ${coll}`);}
-        if (coll >= 30) {coll_i = coll = 1;msg('clear');msg('Zerou');}
+        if (coll <= 99) {coll = coll_i++;msg(`collatz: ${coll}`);}
+        if (coll >= 99) {coll_i = coll = 1;msg('clear');msg('Zerou');}
 
         //pencil.color = randCor();
         
@@ -62,6 +62,7 @@ function updown() {
 
     pencil.x += pencil.speed;
     pencil.y = canvas.height - collatz(coll);
+    msg(`.${pencil.y}`)
         
     
 }

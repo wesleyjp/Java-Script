@@ -1,0 +1,29 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.bol {
+    width: 50px;
+    height: 40px;
+    color: green;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 100%;
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
+    vertical-align: middle;
+    margin: 2px;
+    padding-top: 15px;
+}
+
+.markbol {
+    background-color: white !important;
+}
+
+#content {
+    width: 350px;
+    border: 1px solid blue;
+    padding: 15px;   
+}
