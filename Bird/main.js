@@ -9,6 +9,8 @@ bTop = 0;
 look1 = true;
 look2 = false;
 
+//document.addEventListener('click', function(e) {')
+
 document.addEventListener('mousemove', e => {
     mX = e.pageX;
     mY = e.pageY;

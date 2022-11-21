@@ -1,6 +1,7 @@
 html {
     width: 100%;
     height: 100%;
+    cursor: url('./img/worm_18x18.png'), auto;
   }
 
 body {
@@ -9,6 +10,7 @@ body {
     margin: 0;
     padding: 0;
     background: rgb(0,161,255);
+    
 }
 
 #bird {
@@ -16,3 +18,4 @@ body {
     width: 40px;
     height: 40px;
 }
+
